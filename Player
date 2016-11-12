@@ -1,0 +1,72 @@
+import java.util.Arrays;
+
+import org.apache.commons.lang3.ArrayUtils;
+
+import org.apache.commons.lang3.ArrayUtils;
+
+public class Player{
+	
+	public String name="Player0";
+	
+	String playerName;
+	
+	boolean playerWon;
+	
+	int numberOfGuesses=6;
+	
+	public void setNumberOfGuesses(int number){
+		this.numberOfGuesses=number;
+	}
+	
+	int numberOfPoints;
+	
+	int[] guesses = new int[numberOfGuesses];//PROBLEM
+
+	public int[] playerGuess() {
+		for (int i=0; i<this.numberOfGuesses; i++){
+			boolean check=true;
+			do {
+			int test = (int) (Math.random()*49)+1;
+			if (ArrayUtils.contains(guesses, test) ){
+				check= true;
+			} else {
+				guesses[i]=test;
+				check= false;
+			}
+			} while (check==true);
+
+		}
+		Arrays.sort(guesses);
+		return guesses;
+	}
+	
+
+	
+	public String getName() {
+		return this.playerName;
+	}
+	
+	public void setName(String name) {
+		this.playerName = name;
+	}
+	
+	public void setWin(boolean won){
+		this.playerWon = won;
+	}
+	
+	public boolean getwin(){
+		return this.playerWon;
+	}
+	
+	
+	public Player(String name, int number){
+		this.setName(name);
+		this.setNumberOfGuesses(number);
+	}
+	
+	
+	public Player(){
+		
+	}
+
+}
