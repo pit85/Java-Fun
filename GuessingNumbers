@@ -1,0 +1,88 @@
+import java.util.Arrays;
+
+import org.apache.commons.lang3.ArrayUtils;
+
+
+public class GuessingNumbers {
+	
+	int numberOfPlayers;
+	int numberOfGuesses=0;
+	int threes;
+	int fours;
+	int fives;
+	int sixes;
+	int sevens;
+	double earnigs;
+
+	
+	public void startTheGame(int numberOfPlayers, 	int numberOfGuesses){
+		
+		Lotto output = new Lotto();
+		int winningNumbers[] =output.getLotto();
+		
+		String[] namesOfPlayers = new String[numberOfPlayers];
+		
+		Player[] thePlayers = new Player[numberOfPlayers];
+
+		int numberOfWinners = 0;
+		
+		
+		System.out.println("Tajemnicze liczby to:" + Arrays.toString(winningNumbers));
+		
+		//Names of Players
+		for(int i=0; i<numberOfPlayers; i++){
+			namesOfPlayers[i]="Los" + (i+1);
+ 			thePlayers[i] = new Player(namesOfPlayers[i], numberOfGuesses);
+			thePlayers[i].playerGuess();
+
+//			Check for the win
+			for(int j=0;j<6;j++){
+				
+				if( ArrayUtils.contains(thePlayers[i].guesses, winningNumbers[j])){
+					thePlayers[i].numberOfPoints++;	
+				} 
+				}
+			if( Arrays.equals(thePlayers[i].guesses, winningNumbers)){
+				thePlayers[i].playerWon = true;
+				numberOfWinners++;
+				
+			} else {
+				thePlayers[i].playerWon = false;
+			}
+			
+			System.out.print(thePlayers[i].playerName + " ");			
+			System.out.println(Arrays.toString(thePlayers[i].guesses)+ " trafił " +thePlayers[i].numberOfPoints + " liczby");	
+
+			
+		} //for loop
+		
+		//number of winning coupons
+		
+
+		for (int i=0; i<numberOfPlayers; i++){
+			if(thePlayers[i].numberOfPoints==3){
+				threes++;
+			}
+			if(thePlayers[i].numberOfPoints==4){
+				fours++;
+			}
+			if(thePlayers[i].numberOfPoints==5){
+				fives++;
+			}
+			if(thePlayers[i].numberOfPoints==6){
+				sixes++;
+			}
+		}
+		earnigs=threes*24 + fours*138.10 + fives*3512.70 + sixes*20000000- numberOfPlayers*3;
+		System.out.println("Trójki " + threes + " losy");
+		System.out.println("Czwórki " + fours + " losy");
+		System.out.println("Piątki " + fives + " losy");
+		System.out.println("Szóstki " + sixes + " losy");
+		System.out.println("Zysk netto: " + earnigs );
+		//Earnigns netto
+	
+	}
+
+	
+
+}
